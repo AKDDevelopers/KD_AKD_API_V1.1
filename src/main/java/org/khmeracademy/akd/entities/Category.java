@@ -11,6 +11,19 @@ public class Category {
 	@JsonProperty("CAT_NAME")
 	private String catName;
 	
+	@JsonProperty("IMAGE")
+	private String catImage;
+	
+	public String getCatImage() {
+		return catImage;
+	}
+
+
+	public void setCatImage(String catImage) {
+		this.catImage = catImage;
+	}
+
+
 	@JsonProperty("CREATED_DATE")	
 	private String createdDate;
 	

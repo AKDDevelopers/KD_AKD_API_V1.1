@@ -49,8 +49,11 @@ public class CommentSocketController {
 		//TODO: onDisconnect event listener
 		this.nspComment.addDisconnectListener(onDisconnect);
 		
-		//TODO: onCustom event listener
+		//TODO: onCustom event listener "add new comment"
 		this.nspComment.addEventListener("new comment", CommentInput.class, onComment);
+		
+		//TODO: listening on "remove comment" event
+				this.nspComment.addEventListener("remove comment", Integer.class, onRemoveComment);
 	}
 	
 	private ConnectListener onConnect = new ConnectListener() {
@@ -98,6 +101,17 @@ public class CommentSocketController {
 			
 			System.out.println("Comment /comment : " + comment);
 			System.out.println("onComment - getTransport: "+ client.getTransport());
+		}
+	};
+	
+	//TODO: remove comment handler
+	private DataListener<Integer> onRemoveComment = new DataListener<Integer>() {
+		@Override
+		public void onData(SocketIOClient client, Integer id, AckRequest ackSender) throws Exception {
+			if(commentService.delete(id)){
+				//send to all connected client
+				nspComment.getBroadcastOperations().sendEvent("removed comment", id);
+			}
 		}
 	};
 	

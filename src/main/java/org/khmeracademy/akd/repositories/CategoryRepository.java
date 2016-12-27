@@ -130,6 +130,7 @@ public interface CategoryRepository {
 	@Results({
 		@Result(property="catID", column="cat_id"),
 		@Result(property="catName", column="name"),
+		@Result(property="catImage", column="cat_img"),
 		@Result(property="createdDate", column="created_date"),
 		@Result(property="remark", column="remark"),
 		@Result(property="parentID", column="parent_id"),
