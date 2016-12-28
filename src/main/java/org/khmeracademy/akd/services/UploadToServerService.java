@@ -5,5 +5,6 @@ public interface UploadToServerService {
 	public String uploadDocument(MultipartFile files, String folder);
 	public String uploadUserProfile(MultipartFile files, String folder);
 	public String uploadDocThumbnail(MultipartFile files, String folder);
+	public String uploadCateThumbnail(MultipartFile files, String folder);
 	
 }

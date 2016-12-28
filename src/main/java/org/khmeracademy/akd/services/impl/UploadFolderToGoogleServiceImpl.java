@@ -24,7 +24,7 @@ public class UploadFolderToGoogleServiceImpl {
 	private SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private Date d=null;
     private String date=null;
-	public Category upload(String parentID,String folderName,String folderDes,String status,String catIcon,int catLevel,int catNumOrder) throws GeneralSecurityException, IOException{
+	public Category upload(String parentID,String folderName,String folderDes,String status,String catIcon,int catLevel,int catNumOrder,String catImage) throws GeneralSecurityException, IOException{
 		//	CODE CONNECT WITH GOOGLE API
 		String scope="https://www.googleapis.com/auth/drive";
 
@@ -80,6 +80,7 @@ public class UploadFolderToGoogleServiceImpl {
 			cat.setIcon(catIcon);
 			cat.setLevel(catLevel);
 			cat.setOrder(catNumOrder);
+			cat.setCatImage(catImage);
 			
 		}
 		

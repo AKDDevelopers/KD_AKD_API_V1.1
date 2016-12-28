@@ -2,6 +2,8 @@ package org.khmeracademy.akd.entities;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Category {
@@ -14,11 +16,23 @@ public class Category {
 	@JsonProperty("IMAGE")
 	private String catImage;
 	
+	
+
+
+
+
+
+	/**
+	 * @return the catImage
+	 */
 	public String getCatImage() {
 		return catImage;
 	}
 
 
+	/**
+	 * @param catImage the catImage to set
+	 */
 	public void setCatImage(String catImage) {
 		this.catImage = catImage;
 	}

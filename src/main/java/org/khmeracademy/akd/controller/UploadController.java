@@ -79,10 +79,10 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value="/uploadFolder", method = RequestMethod.POST)
-	public void uploadFolder(@RequestParam("folderID") String id,@RequestParam("folderName") String name,@RequestParam("folderDes") String des,@RequestParam("folderStatus") String sta,@RequestParam("catIcon") String catIcon,@RequestParam("catLevel") int catLevel,@RequestParam("catNumOrder") int catNumOrder ) throws GeneralSecurityException, IOException{
+	public void uploadFolder(@RequestParam("folderID") String id,@RequestParam("folderName") String name,@RequestParam("folderDes") String des,@RequestParam("folderStatus") String sta,@RequestParam("catIcon") String catIcon,@RequestParam("catLevel") int catLevel,@RequestParam("catNumOrder") int catNumOrder,@RequestParam("catImage") String catImage) throws GeneralSecurityException, IOException{
 		System.out.println("Status: "+sta);
 		UploadFolderToGoogleServiceImpl folder=new UploadFolderToGoogleServiceImpl();	
-		boolean status=uploadToDBService.uploadFolder(folder.upload(id, name,des,sta,catIcon,catLevel,catNumOrder));	
+		boolean status=uploadToDBService.uploadFolder(folder.upload(id, name,des,sta,catIcon,catLevel,catNumOrder,catImage));	
 		if(status){
 			//SET CODE
 			//SET MESSAGE
@@ -109,14 +109,14 @@ public class UploadController {
 			status = uploadToDBService.uploadUserProfile(fileName,userID);	
 		}
 		
-		if(status){
+	
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("CODE","10000");
 			map.put("MESSAGE","YOU HAVE BEEN UPLOADED SUCCESSFULLY!!!");
 			map.put("DATA",path);
 			return map;
-		}
-		return null;
+		
+		
 	}
 	
 	@RequestMapping(value="/uploadDocThumbnail", method = RequestMethod.POST)
@@ -147,4 +147,45 @@ public class UploadController {
 		}
 		return null;
 	}		
+	
+	
+	// TODO: upload main category thumbnail
+	
+	@RequestMapping(value="/uploadCateThumbnail", method = RequestMethod.POST)
+	public Map<String, Object> uploadMaincateThumbnail(@RequestParam("files") MultipartFile file,@RequestParam("cateId") String maincateId) throws GeneralSecurityException, IOException{
+		//upload file to server -> get full path
+		String path = uploadToServerService.uploadCateThumbnail(file, null);
+		System.out.println("CateID"+maincateId);
+		
+		String fileName=path.substring(path.lastIndexOf('/')+1,path.length());
+		System.out.println("FileName"+fileName);
+		String finalFilePath="http://localhost:1111/resources/img/cate-thumbnail/"+fileName;
+		
+		
+		boolean status=false;	
+		
+		if(path!=null)
+		{
+//			uploadToDBService.uploadDocThumbnail(fileName,docID);	
+			status = uploadToDBService.uploadDocThumbnail(finalFilePath,maincateId);	
+		}
+		
+		
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("CODE","10000");
+			map.put("MESSAGE","YOU HAVE BEEN UPLOADED SUCCESSFULLY!!!");
+			map.put("DATA",finalFilePath);
+		
+			return map;
+		
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 }
