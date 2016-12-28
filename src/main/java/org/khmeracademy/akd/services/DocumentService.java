@@ -30,6 +30,7 @@ public interface DocumentService {
 	ArrayList<Document> getDocumentByPopular(Paging pagination);
 	
 	ArrayList<Document> getDocumentByRecommended(int userID);
+	ArrayList<Document> getDocumentByRecommendedAndDocType(int userID,Paging pagination);
 	
 	ArrayList<Document> getDocumentByNewPost();
 	

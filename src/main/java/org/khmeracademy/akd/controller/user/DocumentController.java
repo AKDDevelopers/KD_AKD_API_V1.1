@@ -274,6 +274,27 @@ public class DocumentController {
 		return res;
 	}
 	
+	@RequestMapping(value="/getDocumentByRecommendedAndDocType",method=RequestMethod.GET)
+	public ResponseList<Document> getDocumentByRecommendedAndDocType(@RequestParam("userID") int userID, Paging pagination)
+	{
+		System.out.println("Limit: " + pagination.getLimit() + " Page: " + pagination.getOffset());
+		ArrayList<Document> doc=documentService.getDocumentByRecommendedAndDocType(userID,pagination);
+		ResponseList<Document> res=new ResponseList<Document>();
+		
+		if(doc.size()>0){
+			res.setCode(ResponseCode.RECORD_FOUND);
+			res.setMessage();
+			res.setData(doc);
+			res.setPaging(pagination);
+		}
+		else{
+			res.setCode(ResponseCode.RECORD_NOT_FOUND);
+			res.setMessage();
+		}
+				
+		return res;
+	}
+	
 	@RequestMapping(value="/getDocumentByNewPost/",method=RequestMethod.GET)
 	public ResponseList<Document> getDocumentByNewPost()
 	{

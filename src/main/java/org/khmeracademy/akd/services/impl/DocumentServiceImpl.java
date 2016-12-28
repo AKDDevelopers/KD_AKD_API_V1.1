@@ -89,6 +89,13 @@ public class DocumentServiceImpl implements DocumentService{
 		return documentRepository.getDocumentByRecommended(userID);
 	}
 	
+	@Override
+	public ArrayList getDocumentByRecommendedAndDocType(int userID,Paging pagination) {
+		long totalCount = documentRepository.totalCount(userID);
+		pagination.setTotalCount(totalCount);
+		return documentRepository.getDocumentByRecommendedAndDocType(userID,pagination);
+	}
+	
 	
 	@Override
 	public int getDocumentCount() {
@@ -102,9 +109,6 @@ public class DocumentServiceImpl implements DocumentService{
 		return documentRepository.getDocumentByLikeTitle(title);
 	}
 	
-
-	
-
 
 	@Override
 	public ArrayList<Document> getDocByUser(int userID, int docTypeNum) {

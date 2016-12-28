@@ -288,6 +288,31 @@ public interface DocumentRepository {
 	})
 	ArrayList<Document> getDocumentByRecommended(int userID);
 	
+	
+	@Select("SELECT DISTINCT doc.doc_id,doc.title,doc.doc_type_num,doc.des,doc.embed_link,doc.thumbnail_url,doc.view,doc.share,doc.user_id, doc.status FROM akd_documents doc INNER JOIN akd_logs lg ON doc.doc_id=lg.doc_id WHERE doc.cat_id IN(SELECT dd.cat_id FROM akd_documents dd INNER JOIN akd_logs ll ON dd.doc_id=ll.doc_id WHERE ll.user_id=#{userID} AND dd.doc_type_num=1 AND dd.status=1 ORDER BY ll.date DESC) LIMIT #{pagination.limit} OFFSET #{pagination.offset}")
+	@Results({
+		@Result(property="docID", column="doc_id"),
+		@Result(property="title", column="title"),
+		@Result(property="des", column="des"),
+		@Result(property="embedLink", column="embed_link"),
+		@Result(property="thumbnailURL", column="thumbnail_url"),
+		@Result(property="exportLink", column="export_link"),
+		@Result(property="view", column="view"),
+		@Result(property="share", column="share"),		
+		@Result(property="createdDate", column="created_date"),
+		@Result(property="docTypeNum", column="doc_type_num"),
+		@Result(property="userID", column="user_id"),
+		@Result(property="catID", column="cat_id"),
+		@Result(property="status", column="status"),
+		@Result(property="users", column="user_id", one = @One(select = "getUser")),
+		@Result(property="catName", column="cat_id", one = @One(select = "getCategoryNameByCatID"))
+		
+	})
+	ArrayList<Document> getDocumentByRecommendedAndDocType(@Param("userID") int userID, @Param("pagination") Paging pagination);
+	
+	@Select("SELECT COUNT(*) FROM akd_documents WHERE akd_documents.user_id=#{userID}")
+	long totalCount(int userID);
+	
 	@Select("SELECT * FROM akd_documents ORDER BY to_timestamp(created_date, 'dd-MM-yyyy HH24:MI:SS') DESC")
 	
 	@Results({
