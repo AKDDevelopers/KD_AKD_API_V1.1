@@ -255,6 +255,26 @@ public class DocumentController {
 		return res;
 	}
 	
+	@RequestMapping(value="/getDocumentByPopularAndDocTypeNum",method=RequestMethod.GET)
+	public ResponseList<Document> getDocumentByPopularAndDocTypeNum(Paging pagination)
+	{
+		ArrayList<Document> doc=documentService.getDocumentByPopularAndDocTypeNum(pagination);
+		ResponseList<Document> res=new ResponseList<Document>();
+		
+		if(doc.size()>0){
+			res.setCode(ResponseCode.RECORD_FOUND);
+			res.setMessage();
+			res.setData(doc);
+			res.setPaging(pagination);
+		}
+		else{
+			res.setCode(ResponseCode.RECORD_NOT_FOUND);
+			res.setMessage();
+		}
+				
+		return res;
+	}
+	
 	@RequestMapping(value="/getDocumentByRecommended/{userID}",method=RequestMethod.GET)
 	public ResponseList<Document> getDocumentByRecommended(@PathVariable("userID") int userID)
 	{

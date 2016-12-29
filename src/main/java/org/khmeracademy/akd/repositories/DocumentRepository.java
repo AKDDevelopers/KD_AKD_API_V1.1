@@ -265,6 +265,26 @@ public interface DocumentRepository {
 	})
 	ArrayList<Document> getDocumentByPopular(@Param("pagination") Paging pagination);
 	
+	@Select("SELECT * FROM akd_documents WHERE doc_type_num=1 ORDER BY view DESC LIMIT #{pagination.limit} OFFSET #{pagination.offset}")
+	@Results({
+		@Result(property="docID", column="doc_id"),
+		@Result(property="title", column="title"),
+		@Result(property="des", column="des"),
+		@Result(property="embedLink", column="embed_link"),
+		@Result(property="thumbnailURL", column="thumbnail_url"),
+		@Result(property="exportLink", column="export_link"),
+		@Result(property="view", column="view"),
+		@Result(property="share", column="share"),		
+		@Result(property="createdDate", column="created_date"),
+		@Result(property="docTypeNum", column="doc_type_num"),
+		@Result(property="userID", column="user_id"),
+		@Result(property="catID", column="cat_id"),
+		@Result(property="status", column="status"),
+		@Result(property="users", column="user_id", one = @One(select = "getUser")),
+		@Result(property="catName", column="cat_id", one = @One(select = "getCategoryNameByCatID"))
+	})
+	ArrayList<Document> getDocumentByPopularAndDocTypeNum(@Param("pagination") Paging pagination);
+	
 	
 	
 	@Select("SELECT DISTINCT doc.doc_id,doc.title,doc.des,doc.embed_link,doc.thumbnail_url,doc.view,doc.share,doc.user_id FROM akd_documents doc INNER JOIN akd_logs lg ON doc.doc_id=lg.doc_id WHERE doc.cat_id IN(SELECT dd.cat_id FROM akd_documents dd INNER JOIN akd_logs ll ON dd.doc_id=ll.doc_id WHERE ll.user_id=#{userID} ORDER BY ll.date DESC)")
