@@ -309,7 +309,7 @@ public interface DocumentRepository {
 	ArrayList<Document> getDocumentByRecommended(int userID);
 	
 	
-	@Select("SELECT DISTINCT doc.doc_id,doc.title,doc.doc_type_num,doc.des,doc.embed_link,doc.thumbnail_url,doc.view,doc.share,doc.user_id, doc.status, doc.created_date FROM akd_documents doc INNER JOIN akd_logs lg ON doc.doc_id=lg.doc_id WHERE doc.cat_id IN(SELECT dd.cat_id FROM akd_documents dd INNER JOIN akd_logs ll ON dd.doc_id=ll.doc_id WHERE ll.user_id=#{userID} AND dd.doc_type_num=1 AND dd.status=1 ORDER BY ll.date DESC) LIMIT #{pagination.limit} OFFSET #{pagination.offset}")
+	@Select("SELECT DISTINCT doc.doc_id,doc.title,doc.doc_type_num,doc.des,doc.embed_link,doc.thumbnail_url,doc.export_link,doc.view,doc.share,doc.user_id, doc.status, doc.created_date FROM akd_documents doc INNER JOIN akd_logs lg ON doc.doc_id=lg.doc_id WHERE doc.cat_id IN(SELECT dd.cat_id FROM akd_documents dd INNER JOIN akd_logs ll ON dd.doc_id=ll.doc_id WHERE ll.user_id=#{userID} AND dd.doc_type_num=1 AND dd.status=1 ORDER BY ll.date DESC) LIMIT #{pagination.limit} OFFSET #{pagination.offset}")
 	@Results({
 		@Result(property="docID", column="doc_id"),
 		@Result(property="title", column="title"),
