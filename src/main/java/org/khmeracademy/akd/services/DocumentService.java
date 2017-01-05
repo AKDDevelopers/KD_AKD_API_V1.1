@@ -28,12 +28,13 @@ public interface DocumentService {
 	ArrayList<Document> getDocumentAndUserAndCategoryAndCommentByDocID(String DocID);
 	
 	ArrayList<Document> getDocumentByPopular(Paging pagination);
-	ArrayList<Document> getDocumentByPopularAndDocTypeNum(Paging pagination);
+	ArrayList<Document> getDocumentByPopularAndPagination(Paging pagination);
 	
 	ArrayList<Document> getDocumentByRecommended(int userID);
-	ArrayList<Document> getDocumentByRecommendedAndDocType(int userID,Paging pagination);
+	ArrayList<Document> getDocumentByRecommendedAndPagination(int userID,Paging pagination);
 	
 	ArrayList<Document> getDocumentByNewPost();
+	ArrayList<Document> getDocumentByNewPostAndPagination(Paging pagination);
 	
 	int getDocumentCount();
 	

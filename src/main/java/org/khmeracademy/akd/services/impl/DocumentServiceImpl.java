@@ -85,9 +85,9 @@ public class DocumentServiceImpl implements DocumentService{
 	}
 	
 	@Override
-	public ArrayList getDocumentByPopularAndDocTypeNum(Paging pagination) {
+	public ArrayList getDocumentByPopularAndPagination(Paging pagination) {
 		pagination.setTotalCount(documentRepository.count());
-		return documentRepository.getDocumentByPopularAndDocTypeNum(pagination);
+		return documentRepository.getDocumentByPopularAndPagination(pagination);
 	}
 	
 	@Override
@@ -96,10 +96,10 @@ public class DocumentServiceImpl implements DocumentService{
 	}
 	
 	@Override
-	public ArrayList getDocumentByRecommendedAndDocType(int userID,Paging pagination) {
+	public ArrayList getDocumentByRecommendedAndPagination(int userID,Paging pagination) {
 		long totalCount = documentRepository.totalCount(userID);
 		pagination.setTotalCount(totalCount);
-		return documentRepository.getDocumentByRecommendedAndDocType(userID,pagination);
+		return documentRepository.getDocumentByRecommendedAndPagination(userID,pagination);
 	}
 	
 	
@@ -130,6 +130,12 @@ public class DocumentServiceImpl implements DocumentService{
 	@Override
 	public ArrayList<Document> getDocumentByNewPost() {
 		return documentRepository.getDocumentByNewPost();
+	}
+	
+	@Override
+	public ArrayList<Document> getDocumentByNewPostAndPagination(Paging pagination) {
+		pagination.setTotalCount(documentRepository.count());
+		return documentRepository.getDocumentByNewPostAndPagination(pagination);
 	}
 
 	/*@Override

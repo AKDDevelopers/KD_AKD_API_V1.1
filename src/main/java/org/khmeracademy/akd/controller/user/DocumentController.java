@@ -255,12 +255,11 @@ public class DocumentController {
 		return res;
 	}
 	
-	@RequestMapping(value="/getDocumentByPopularAndDocTypeNum",method=RequestMethod.GET)
+	@RequestMapping(value="/getDocumentByPopularAndPagination",method=RequestMethod.GET)
 	public ResponseList<Document> getDocumentByPopularAndDocTypeNum(Paging pagination)
 	{
-		ArrayList<Document> doc=documentService.getDocumentByPopularAndDocTypeNum(pagination);
+		ArrayList<Document> doc=documentService.getDocumentByPopularAndPagination(pagination);
 		ResponseList<Document> res=new ResponseList<Document>();
-		
 		if(doc.size()>0){
 			res.setCode(ResponseCode.RECORD_FOUND);
 			res.setMessage();
@@ -294,16 +293,17 @@ public class DocumentController {
 		return res;
 	}
 	
-	@RequestMapping(value="/getDocumentByRecommendedAndDocType",method=RequestMethod.GET)
+	@RequestMapping(value="/getDocumentByRecommendedAndPagination",method=RequestMethod.GET)
 	public ResponseList<Document> getDocumentByRecommendedAndDocType(@RequestParam("userID") int userID, Paging pagination)
 	{
 		System.out.println("Limit: " + pagination.getLimit() + " Page: " + pagination.getOffset());
-		ArrayList<Document> doc=documentService.getDocumentByRecommendedAndDocType(userID,pagination);
+		ArrayList<Document> doc=documentService.getDocumentByRecommendedAndPagination(userID,pagination);
 		ResponseList<Document> res=new ResponseList<Document>();
 		
 		if(doc.size()>0){
 			res.setCode(ResponseCode.RECORD_FOUND);
 			res.setMessage();
+			
 			res.setData(doc);
 			res.setPaging(pagination);
 		}
@@ -325,6 +325,26 @@ public class DocumentController {
 			res.setCode(ResponseCode.RECORD_FOUND);
 			res.setMessage();
 			res.setData(doc);
+		}
+		else{
+			res.setCode(ResponseCode.RECORD_NOT_FOUND);
+			res.setMessage();
+		}
+		return res;
+		
+	}
+	
+	@RequestMapping(value="/getDocumentByNewPostAndPagination",method=RequestMethod.GET)
+	public ResponseList<Document> getDocumentByNewPostAndPagination(Paging pagination)
+	{
+		ArrayList<Document> doc=documentService.getDocumentByNewPostAndPagination(pagination);
+		ResponseList<Document> res=new ResponseList<Document>();
+		
+		if(doc.size()>0){
+			res.setCode(ResponseCode.RECORD_FOUND);
+			res.setMessage();
+			res.setData(doc);
+			res.setPaging(pagination);
 		}
 		else{
 			res.setCode(ResponseCode.RECORD_NOT_FOUND);

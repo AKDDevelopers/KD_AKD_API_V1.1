@@ -15,7 +15,8 @@ public class ResponseList<T> extends Response {
 	
 	@JsonProperty("PAGING")
 	public Paging paging;
-	
+
+
 	public List<T> getData()
 	{
 		return data;
