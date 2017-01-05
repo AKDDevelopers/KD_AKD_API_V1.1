@@ -87,5 +87,11 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryRepository.countSubCatByParentID(parentID);
 	}
 
+	@Override
+	public ArrayList<Category> getMaincategoryAndItSub() {
+		// TODO Auto-generated method stub
+		return categoryRepository.getMaincategoryAndItSub();
+	}
+
 	
 }

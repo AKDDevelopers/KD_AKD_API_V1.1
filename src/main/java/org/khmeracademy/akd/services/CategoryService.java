@@ -27,6 +27,9 @@ public interface CategoryService {
 	
 	ArrayList<Category> getAllCategoryByLevel(int level);
 	
+	//NEW
+	ArrayList<Category> getMaincategoryAndItSub();
+	
 	int countSubCatByParentID(String parentID);
 	
 }

@@ -229,6 +229,27 @@ public class CategoryController {
 				
 		return res;
 	}
+	//NEW
+	@RequestMapping(value="/getMaincategoryAndItSub",method=RequestMethod.GET)
+	public ResponseList<Category> getMaincategoryAndItSub()
+	{
+		ArrayList<Category> cat=categoryService.getMaincategoryAndItSub();
+		ResponseList<Category> res=new ResponseList<Category>();
+		
+		if(categoryService.getMaincategoryAndItSub()!=null){
+			res.setCode(ResponseCode.RECORD_FOUND);
+			res.setMessage();
+			res.setData(cat);
+		}
+		else{
+			res.setCode(ResponseCode.RECORD_NOT_FOUND);
+			res.setMessage();
+		}
+				
+		return res;
+	}
+	
+	
 	
 	@RequestMapping(value="/countSubCatByParentID",method=RequestMethod.GET)
 	public Response countSubCatByParentID(@RequestParam("parentID") String parentID)

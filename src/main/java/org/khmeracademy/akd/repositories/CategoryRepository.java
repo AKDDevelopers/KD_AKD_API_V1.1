@@ -187,6 +187,29 @@ public interface CategoryRepository {
 	})
 	ArrayList<Category>getAllCategoryByLevel(@Param("level") int level);
 	
+	@Select("SELECT * FROM akd_categories WHERE level=0 ORDER BY name ASC ")
+	@Results({
+		@Result(property="catID", column="cat_id"),
+		@Result(property="catName", column="name"),
+		@Result(property="createdDate", column="created_date"),
+		@Result(property="remark", column="remark"),
+		@Result(property="parentID", column="parent_id"),
+		@Result(property="status", column="status"),
+		@Result(property="icon", column="icon"),
+		@Result(property="order", column="rang_order"),
+		/*@Result(property="totalDoc", column="total_doc"),*/
+		@Result(property="totalDoc", column="cat_id", one = @One(select = "getTotalDocByCatID")),
+		@Result(property="level", column="level"),
+		@Result(property="subCategories", column="cat_id"  
+		, many = @Many(select = "getCategoryByParentIDAndStatusEnable")
+		)
+	})
+	ArrayList<Category>getMaincategoryAndItSub();
+	
+	
+	
+	
+	
 	@Select("SELECT COUNT(*) FROM akd_categories WHERE parent_id=#{catID}")
 	@Results({
 		@Result(property="catID", column="count"),
