@@ -49,11 +49,16 @@ public class CommentSocketController {
 		//TODO: onDisconnect event listener
 		this.nspComment.addDisconnectListener(onDisconnect);
 		
+		//TODO: onAllComment event listener "all comment"
+		this.nspComment.addEventListener("all comments", String.class, onAllComment);
+		
 		//TODO: onCustom event listener "add new comment"
 		this.nspComment.addEventListener("new comment", CommentInput.class, onComment);
 		
 		//TODO: listening on "remove comment" event
-				this.nspComment.addEventListener("remove comment", Integer.class, onRemoveComment);
+		this.nspComment.addEventListener("remove comment", Integer.class, onRemoveComment);
+		
+		
 	}
 	
 	private ConnectListener onConnect = new ConnectListener() {
@@ -61,7 +66,24 @@ public class CommentSocketController {
 		public void onConnect(SocketIOClient client) {
 			System.out.println("Connected to /comment namespace : " + client.getSessionId());
 			
-			List<Comment> comments = commentService.getAllCommentByDocID("0B3xn0pv8IJtzalJkVzkxWUNfUEk");
+
+			
+			System.out.println("onConnect - getTransport: "+ client.getTransport());
+		}
+	};
+	
+	private DisconnectListener onDisconnect = new DisconnectListener() {
+		@Override
+		public void onDisconnect(SocketIOClient client) {
+			System.out.println("Disonnected to /comment namespace : " + client.getSessionId());
+		}
+	};
+	
+	private DataListener<String> onAllComment = new DataListener<String>() {
+		@Override
+		public void onData(SocketIOClient client, String docID, AckRequest ackSender) throws Exception {
+			
+			List<Comment> comments = commentService.getAllCommentByDocID(docID);
 			if(!comments.isEmpty()){
 				System.out.println("Sending!!!");
 				System.out.println("Comment: " + comments);
@@ -74,14 +96,8 @@ public class CommentSocketController {
 				}, 1000);
 			}
 			
-			System.out.println("onConnect - getTransport: "+ client.getTransport());
-		}
-	};
-	
-	private DisconnectListener onDisconnect = new DisconnectListener() {
-		@Override
-		public void onDisconnect(SocketIOClient client) {
-			System.out.println("Disonnected to /comment namespace : " + client.getSessionId());
+			System.out.println("Comment /comment : " + comments);
+			System.out.println("onAllComment - getTransport: "+ client.getTransport());
 		}
 	};
 	
