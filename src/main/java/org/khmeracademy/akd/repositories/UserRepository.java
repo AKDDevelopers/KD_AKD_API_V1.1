@@ -155,7 +155,7 @@ interface USER_SQL{
 			+ "#{status},"
 			+ "#{role},"
 			+ "#{userHash},"
-			+ "'default.png')";	
+			+ "#{profile})";	
 	
 	String COUNT="SELECT COUNT(user_id) FROM akd_users";
 

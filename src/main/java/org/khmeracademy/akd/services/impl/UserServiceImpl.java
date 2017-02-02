@@ -8,14 +8,22 @@ import org.khmeracademy.akd.services.UserService;
 import org.khmeracademy.akd.utilities.Paging;
 import org.khmeracademy.akd.utilities.UserFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@PropertySource(
+		value={"classpath:application.properties"}
+)
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Value("${akd.api.url}")
+	private String AKD_API_URL;
 	
 	
 	@Override
@@ -30,7 +38,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean insert(User user) {
-		
+		if(user.getProfile().equals("") || user.getProfile() == null ){
+			user.setProfile(AKD_API_URL+"/resources/img/user-profile/default.png");
+		}
 		return userRepository.insert(user);
 		
 	}
