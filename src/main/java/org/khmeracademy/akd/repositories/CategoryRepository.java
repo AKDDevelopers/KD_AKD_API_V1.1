@@ -217,5 +217,36 @@ public interface CategoryRepository {
 	int countSubCatByParentID(String catID);
 	
 	
+	// Tola 02/02/2017
+	@Select("SELECT cat_id, name, parent_id  FROM akd_categories WHERE parent_id='0' AND status ='1' ORDER BY rang_order ASC")
+	@Results({
+		@Result(property="catID", column="cat_id"),
+		@Result(property="catName", column="name"),
+		@Result(property="parentID", column="parent_id"),
+		@Result(property="subCategories", column="cat_id" ,
+		many = @Many(select = "getCategoriesLevel2")
+	)
+	})
+	public ArrayList<Category> getCategories();
+	
+	@Select("SELECT cat_id, name, parent_id  FROM akd_categories WHERE parent_id=#{catID} AND status ='1' ORDER BY rang_order ASC")
+	@Results({
+		@Result(property="catID", column="cat_id"),
+		@Result(property="catName", column="name"),
+		@Result(property="parentID", column="parent_id"),
+		@Result(property="subCategories", column="cat_id" ,
+			many = @Many(select = "getCategoriesLevel3")
+		)
+	})
+	public ArrayList<Category> getCategoriesLevel2(String catID);
+	
+	@Select("SELECT cat_id, name, parent_id  FROM akd_categories WHERE parent_id=#{catID} AND status ='1' ORDER BY rang_order ASC")
+	@Results({
+		@Result(property="catID", column="cat_id"),
+		@Result(property="catName", column="name"),
+		@Result(property="parentID", column="parent_id")
+	})
+	public ArrayList<Category> getCategoriesLevel3(String catID);
+	
 	
 }

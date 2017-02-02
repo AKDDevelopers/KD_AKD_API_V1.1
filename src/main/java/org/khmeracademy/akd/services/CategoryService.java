@@ -32,4 +32,6 @@ public interface CategoryService {
 	
 	int countSubCatByParentID(String parentID);
 	
+	public ArrayList<Category> getCategories();
+	
 }

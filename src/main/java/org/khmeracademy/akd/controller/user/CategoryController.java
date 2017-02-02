@@ -1,14 +1,19 @@
 package org.khmeracademy.akd.controller.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.khmeracademy.akd.entities.Category;
 import org.khmeracademy.akd.entities.Document;
 import org.khmeracademy.akd.response.*;
 import org.khmeracademy.akd.services.CategoryService;
 import org.khmeracademy.akd.services.DocumentService;
+import org.khmeracademy.akd.utilities.Pagination;
 import org.khmeracademy.akd.utilities.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -268,5 +273,16 @@ public class CategoryController {
 		
 		return res;
 	}
+	
+	
+	// Tola - 02/02/2017
+		@RequestMapping(value="get-categories",method = RequestMethod.GET)
+		public ResponseEntity<Map<String, Object>> getCategories(  ) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("STATUS", true);
+			map.put("DATA", categoryService.getCategories());
+			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		}
+		
 	
 }

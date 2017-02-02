@@ -93,5 +93,11 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryRepository.getMaincategoryAndItSub();
 	}
 
+	@Override
+	public ArrayList<Category> getCategories() {
+		// TODO Auto-generated method stub
+		return categoryRepository.getCategories();
+	}
+
 	
 }
