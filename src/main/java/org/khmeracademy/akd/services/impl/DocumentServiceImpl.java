@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.khmeracademy.akd.entities.Document;
 import org.khmeracademy.akd.repositories.DocumentRepository;
 import org.khmeracademy.akd.services.DocumentService;
+import org.khmeracademy.akd.utilities.Pagination;
 import org.khmeracademy.akd.utilities.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -172,6 +173,17 @@ public class DocumentServiceImpl implements DocumentService{
 	@Override
 	public long getTotalDocumentByStatus(int status) {
 		return documentRepository.countTotalDocByStatus(status);
+	}
+
+	@Override
+	public ArrayList<Document> getDocumentsByDocTitleOrCatID( String docTitle ,String catID, Pagination pagination) {
+		return documentRepository.getDocumentsByDocTitleOrCatID(docTitle , catID, pagination);
+	}
+
+	@Override
+	public int countDocumentsByDocTitleOrCatID(String docTitle ,String catID) {
+		// TODO Auto-generated method stub
+		return documentRepository.countDocumentsByDocTitleOrCatID(docTitle , catID);
 	}
 
 	

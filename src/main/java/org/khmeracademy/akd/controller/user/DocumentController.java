@@ -1,6 +1,8 @@
 package org.khmeracademy.akd.controller.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.khmeracademy.akd.entities.Document;
 import org.khmeracademy.akd.response.Response;
@@ -8,8 +10,11 @@ import org.khmeracademy.akd.response.ResponseCode;
 import org.khmeracademy.akd.response.ResponseList;
 import org.khmeracademy.akd.response.ResponseObject;
 import org.khmeracademy.akd.services.DocumentService;
+import org.khmeracademy.akd.utilities.Pagination;
 import org.khmeracademy.akd.utilities.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -520,6 +525,27 @@ public class DocumentController {
 		}
 		
 		return res;
+	}
+	
+	
+	// Tola - 02/02/2017
+	@RequestMapping(value="get-documents-by-doc-title-or-cat-id",method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getDocumentsByDocTitleOrCatID( 
+			@RequestParam(value = "cat-id", required = false , defaultValue="") String catID ,
+			@RequestParam(value = "doc-title", required = false , defaultValue="") String docTitle, 
+			@RequestParam(value = "page", required = false , defaultValue="1") int page ,
+			@RequestParam(value="limit" , required = false , defaultValue="20") int limit ) {
+		
+		Pagination pagination = new Pagination();
+		pagination.setLimit(limit);
+		pagination.setPage(page);
+		pagination.setTotalCount(documentService.countDocumentsByDocTitleOrCatID(docTitle,catID));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("STATUS", true);
+		map.put("DATA", documentService.getDocumentsByDocTitleOrCatID(docTitle, catID, pagination));
+		map.put("PAGINATION", pagination);
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 	
 	

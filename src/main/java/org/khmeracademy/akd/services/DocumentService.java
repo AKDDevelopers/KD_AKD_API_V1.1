@@ -2,7 +2,9 @@ package org.khmeracademy.akd.services;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.khmeracademy.akd.entities.Document;
+import org.khmeracademy.akd.utilities.Pagination;
 import org.khmeracademy.akd.utilities.Paging;
 
 public interface DocumentService {	
@@ -53,6 +55,12 @@ public interface DocumentService {
 	ArrayList<Document> getAllDocumentByStatus(int status,Paging pagination);
 	
 	long getTotalDocumentByStatus(int status);
+	
+	
+	// Tola - 02/02/2017
+	public ArrayList<Document> getDocumentsByDocTitleOrCatID( String docTitle, String catID, Pagination pagination);
+	public int countDocumentsByDocTitleOrCatID( String docTitle , String catID);
+
 	
 	
 	

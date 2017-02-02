@@ -8,12 +8,15 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.khmeracademy.akd.entities.Category;
 import org.khmeracademy.akd.entities.Comment;
 import org.khmeracademy.akd.entities.Document;
 import org.khmeracademy.akd.entities.Log;
 import org.khmeracademy.akd.entities.User;
+import org.khmeracademy.akd.repositories.provider.DocumentSqlBuilder;
+import org.khmeracademy.akd.utilities.Pagination;
 import org.khmeracademy.akd.utilities.Paging;
 import org.springframework.stereotype.Repository;
 import org.apache.ibatis.annotations.Many;
@@ -472,6 +475,31 @@ public interface DocumentRepository {
 	})
 	long countTotalDocByCatID(@Param("catID") String catID);
 	
+	
+	
+	// Tola - 01/02/2017
+	
+	@SelectProvider(type = DocumentSqlBuilder.class, method = "getDocumentsByDocTitleOrCatID")
+	@Results({
+		@Result(property="docID", column="doc_id"),
+		@Result(property="title", column="title"),
+		@Result(property="des", column="des"),
+		@Result(property="embedLink", column="embed_link"),
+		@Result(property="thumbnailURL", column="thumbnail_url"),
+		@Result(property="exportLink", column="export_link"),
+		@Result(property="view", column="view"),
+		@Result(property="share", column="share"),		
+		@Result(property="createdDate", column="created_date"),
+		@Result(property="docTypeNum", column="doc_type_num"),
+		@Result(property="userID", column="user_id"),
+		@Result(property="catID", column="cat_id"),
+		@Result(property="status", column="status"),
+		@Result(property="users.name", column="name")
+	})
+	public ArrayList<Document> getDocumentsByDocTitleOrCatID(@Param("docTitle") String docTitle, @Param("catID") String catID, @Param("pagination") Pagination pagination);
+	
+	@SelectProvider(type = DocumentSqlBuilder.class, method = "countDocumentsByDocTitleOrCatID")
+	public int countDocumentsByDocTitleOrCatID(@Param("docTitle") String docTitle, @Param("catID") String catID);
 		
 }
 
