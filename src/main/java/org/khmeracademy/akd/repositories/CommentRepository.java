@@ -83,5 +83,17 @@ public interface CommentRepository {
 		@Result(property="title", column="title")	
 	})
 	ArrayList<Document> getDocument();
-	
+	@Select("SELECT * from akd_comments WHERE doc_id=#{docID} AND status <> 0 ORDER BY comment_id DESC LIMIT #{limit} OFFSET #{offset}")
+	@Results({
+			@Result(property="commentID", column="comment_id"),
+			@Result(property="createdDate", column="created_date"),
+			@Result(property="remark", column="remark"),
+			@Result(property="userID", column="user_id"),
+			@Result(property="docID", column="doc_id"),
+			@Result(property="status", column="status"),
+			@Result(property="users", column="user_id", one = @One(select = "getUser"))
+
+	})
+	ArrayList<Comment> getPageCommentByDocID(@Param("docID") String DocID, @Param("limit") int limit, @Param("offset") int offset);
+
 }

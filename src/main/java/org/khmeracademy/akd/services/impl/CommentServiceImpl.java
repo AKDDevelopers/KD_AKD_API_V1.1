@@ -54,6 +54,12 @@ public class CommentServiceImpl implements CommentService{
 	public ArrayList getAllCommentByDocID(String DocID) {
 		return commentRepository.getAllCommentByDocID(DocID);
 	}
-	
-	
+
+	@Override
+	public ArrayList<Comment> getPageCommentByDocID(String DocID, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return commentRepository.getPageCommentByDocID(DocID, limit, offset);
+	}
+
+
 }
