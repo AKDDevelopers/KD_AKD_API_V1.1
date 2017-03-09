@@ -17,5 +17,5 @@ public interface CommentService {
 	Comment findOne(int id);
 	
 	ArrayList<Comment> getAllCommentByDocID(String DocID);
-	
+	ArrayList<Comment> getPageCommentByDocID(String DocID,int limit, int offset);
 }
