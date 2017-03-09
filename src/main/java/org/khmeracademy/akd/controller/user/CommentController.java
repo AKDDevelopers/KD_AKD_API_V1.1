@@ -124,7 +124,7 @@ public class CommentController {
 	{
 		ArrayList<Comment> com=commentService.getAllCommentByDocID(DocID);
 		ResponseList<Comment> res=new ResponseList<Comment>();
-		
+
 		if(commentService.getAllCommentByDocID(DocID)!=null){
 			res.setCode(ResponseCode.RECORD_FOUND);
 			res.setMessage();
@@ -134,8 +134,8 @@ public class CommentController {
 			res.setCode(ResponseCode.RECORD_NOT_FOUND);
 			res.setMessage();
 		}
-				
+
 		return res;
 	}
-	
+
 }
