@@ -100,13 +100,13 @@ public class UploadController {
 		String path = uploadToServerService.uploadUserProfile(file, null);
 		System.out.println(userID);
 		
-		String fileName=path.substring(path.lastIndexOf('/')+1,path.length());
-		System.out.println(fileName);
+//		String fileName=path.substring(path.lastIndexOf('/')+1,path.length());
+//		System.out.println(fileName);
 		
 		boolean status=false;
 		if(path!=null)
 		{
-			status = uploadToDBService.uploadUserProfile(fileName,userID);	
+			status = uploadToDBService.uploadUserProfile(path,userID);
 		}
 		
 	

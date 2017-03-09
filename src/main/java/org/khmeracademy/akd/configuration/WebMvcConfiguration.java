@@ -52,7 +52,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/**").addResourceLocations("/").setCachePeriod(0);
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}
+		registry.addResourceHandler("/assets/upload/**").addResourceLocations("file:/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/USER-PROFILE/");
+}
 	
 	@Autowired
 	private Environment environment;
@@ -119,4 +120,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 		viewResolver.setSuffix(".jsp");
 		registry.viewResolver(viewResolver);
 	}
+
 }

@@ -33,8 +33,9 @@ public class UploadFolderToGoogleServiceImpl {
 		
 		//	ALL KHMER DOCS GOOGLE DRIVE API
 		String serviceAccountID="all-khmer-docs@all-khmer-docs-146405.iam.gserviceaccount.com";
-		String ServiceAccountPrivateKey="ALL-KHMER-DOCS-4ef8850572e9.p12";	
-		
+//		String ServiceAccountPrivateKey="ALL-KHMER-DOCS-4ef8850572e9.p12";
+		String ServiceAccountPrivateKey="/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/ALL-KHMER-DOCS-4ef8850572e9.p12";
+		///opt/FILE MANAGEMENTS/
 		String con = parentID.toLowerCase();
 		
 		if(con.equals(null) || con.equals("") || con.equals(" ")){				

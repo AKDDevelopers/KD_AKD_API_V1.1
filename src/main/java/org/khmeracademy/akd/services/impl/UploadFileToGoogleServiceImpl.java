@@ -34,11 +34,12 @@ public class UploadFileToGoogleServiceImpl {
 		// ALL KHMER DOCS GOOGLE DRIVE API
 		
 		String serviceAccountID="all-khmer-docs@all-khmer-docs-146405.iam.gserviceaccount.com";
-		String ServiceAccountPrivateKey="ALL-KHMER-DOCS-4ef8850572e9.p12";	
-		
+//		String ServiceAccountPrivateKey="ALL-KHMER-DOCS-4ef8850572e9.p12";
+		String ServiceAccountPrivateKey="/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/ALL-KHMER-DOCS-4ef8850572e9.p12";
 		String con = parentID.toLowerCase();
 		
-		if(con.equals(null) || con.equals("") || con.equals(" ")){				
+
+		if(con.equals(null) || con.equals("") || con.equals(" ")){
 			parentID="0BybKdIgWtK8tNTZUbGQwMzVpYjQ";
 		}
 				
@@ -58,47 +59,53 @@ public class UploadFileToGoogleServiceImpl {
 		//TODO: TO SET THE SCOPE FOR ACCESSING TO OUR GOOGLE DRIVE
 		Set<String> scopes = new HashSet<>();
 		scopes.add(scope);
-				
-		//TODO: 1. AUTHENTICATION WITH GOOGLE SERVICE ACCOUNT
-        GoogleCredential googleCredential = new GoogleCredential.Builder()
-									        					.setTransport(new NetHttpTransport())
-									        					.setJsonFactory(JacksonFactory.getDefaultInstance())
-									        					.setServiceAccountId(serviceAccountID)
-									        					.setServiceAccountScopes(scopes)
-									        					.setServiceAccountPrivateKeyFromP12File(new File(ServiceAccountPrivateKey))
-									        					.build();
-        if(googleCredential.getAccessToken()==null){
-			googleCredential.refreshToken();					
-		}
-                
-       // System.out.println(googleCredential.refreshToken() + " " + googleCredential.getAccessToken() + " ");
+		Google google = null;
+		try {
+			//TODO: 1. AUTHENTICATION WITH GOOGLE SERVICE ACCOUNT
+			GoogleCredential googleCredential = new GoogleCredential.Builder()
+					.setTransport(new NetHttpTransport())
+					.setJsonFactory(JacksonFactory.getDefaultInstance())
+					.setServiceAccountId(serviceAccountID)
+					.setServiceAccountScopes(scopes)
+					.setServiceAccountPrivateKeyFromP12File(new File(ServiceAccountPrivateKey))
+					.build();
+			if (googleCredential.getAccessToken() == null) {
+				googleCredential.refreshToken();
+			}
 
-        //TODO: 2. TO CREATE THE GOOGLE OBJECT WITH THE ACCESS TOKEN.
-		Google google = new GoogleTemplate(googleCredential.getAccessToken());
-		
+			 System.out.println(googleCredential.refreshToken() + " " + googleCredential.getAccessToken() + " ");
+
+			//TODO: 2. TO CREATE THE GOOGLE OBJECT WITH THE ACCESS TOKEN.
+			google = new GoogleTemplate(googleCredential.getAccessToken());
+		}catch(Exception ex){
+			System.out.println(" ERROR WITH GOOGLE CREDENTIAL....");
+			ex.printStackTrace();
+		}
+
 		//TODO: 3. TO CREATE THE FOLDER IN GOOGLE DRIVE
 		/*DriveFile folder = google.driveOperations().createFolder("0B4RhbtI4DXY_QWVOWkFiSTlRY1E", "AKD");*/
-		
+
 		//TODO: 4. TO GET THE FILE FROM THE SERVER TO UPLOAD (Create File in Google Drive.)
 		Resource resource = new FileSystemResource(path);
-		
+		System.out.print("SERVER FILE PATH=>"+path);
+
 		//TODO: 5. TO CREATE THE METADATA FOR FILE UPLOAD TO GOOGLE DRIVE
-		
-		String fileName=resource.getFilename();				
-		DriveFile.Builder metaData = DriveFile.builder()
+
+		String fileName=resource.getFilename();
+		DriveFile.Builder metaData = DriveFile.builder().setMimeType("media")
 											.setTitle(title)		//fileName
 											.setDescription(description)
 											.setParents(parentID)
 											.setViewed(viewed)
-											.setRestricted(restricted);				
-		
+											.setRestricted(restricted);
+
 		if(fileName.toLowerCase().endsWith(".pptx") || fileName.toLowerCase().endsWith(".ppt")){
 			 metaData.setMimeType("application/vnd.google-apps.presentation");
 		}
-		
+
 		DriveFile myFile = metaData.build();
 		UploadParameters parameters = new UploadParameters();
-		
+
 		//TODO: 6. TO CREATE THE FILE IN GOOGLE DRIVE
 		DriveFile file1 = google.driveOperations().upload(resource, myFile, parameters);
 		
@@ -110,15 +117,15 @@ public class UploadFileToGoogleServiceImpl {
 		System.out.println("getMimeType:  "+file1.getMimeType());
 		System.out.println("getExportLinks:  "+file1.getExportLinks());
 		
-		System.out.println("isFolder:  "+file1.isFolder());*/	
-		
-	
-		
+		System.out.println("isFolder:  "+file1.isFolder());*/
+
+
+
 		if(fileName.toLowerCase().endsWith(".pptx") || fileName.toLowerCase().endsWith(".ppt")){
 			embedLink="https://docs.google.com/presentation/d/"+ file1.getId()+"/embed?start=false&loop=false&delayms=3000";
 			exportLink="https://docs.google.com/presentation/d/"+file1.getId()+"/export/pptx";
 		}
-		
+
 		else if(fileName.toLowerCase().endsWith(".pdf")){
 			embedLink="https://drive.google.com/file/d/"+ file1.getId()+"/preview";
 			exportLink="https://drive.google.com/uc?export=download&id="+file1.getId();
@@ -135,9 +142,9 @@ public class UploadFileToGoogleServiceImpl {
 		Document doc = new Document();
 		d=new Date();
 		date=sdf.format(d);
-		
+
 		System.out.println(file1.getTitle()+" Upload to Google Drive Successful!");
-		
+
 		doc.setDocID(file1.getId());
 		doc.setTitle(file1.getTitle());
 		doc.setDes(file1.getDescription());
