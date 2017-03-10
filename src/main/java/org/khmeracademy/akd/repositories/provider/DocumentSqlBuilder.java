@@ -59,6 +59,11 @@ public class DocumentSqlBuilder {
 			if(!catID.equals("")){
 				buffer.append(" AND d.cat_id= #{catID}");
 			}
+			
+			if(!docTitle.equals("")){
+				buffer.append(" AND LOWER(d.title) LIKE LOWER('%'||#{docTitle}||'%')  ");
+			}
+			
 			return buffer.toString();
 	}
 
