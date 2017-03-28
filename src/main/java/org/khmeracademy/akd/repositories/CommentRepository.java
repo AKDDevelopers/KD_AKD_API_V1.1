@@ -20,9 +20,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentRepository {
-	
-	@Delete("UPDATE akd_comments SET status= 0 WHERE comment_id =#{commentID}")
-	boolean delete(int id);
+	//UPDATE akd_comments SET status = 0  WHERE comment_id = 504 and user_id = 73
+
+	@Update("UPDATE akd_comments SET status= 0 WHERE comment_id =#{commentId} AND user_id = #{userId}")
+	boolean delete(@Param("commentId") int commentId,@Param("userId") int userId);
 	
 	@Update("UPDATE akd_comments SET created_date=#{createdDate},remark=#{remark},user_id=#{userID},doc_id=#{docID},status=#{status} WHERE comment_id =#{commentID} AND user_id=#{userID}")
 	boolean update(updateComment com);

@@ -35,12 +35,12 @@ public class CommentSocketController {
 	
 	@Autowired
 	public CommentSocketController(SocketIOServer server) {
-		
+
 		System.out.println("=>Constructing CommentSocketController...");
-		
+
 		//TODO: creating /feed name space
 		this.nspComment = server.addNamespace("/comment");
-		
+
 		System.out.println("=>Initializing event listener...");
 		
 		//TODO: onConnect event listener
@@ -56,8 +56,8 @@ public class CommentSocketController {
 		this.nspComment.addEventListener("new comment", CommentInput.class, onComment);
 		
 		//TODO: listening on "remove comment" event
-		this.nspComment.addEventListener("remove comment", Integer.class, onRemoveComment);
-		
+		this.nspComment.addEventListener("remove comment", Comment.class, onRemoveComment);
+
 		
 	}
 	
@@ -121,12 +121,13 @@ public class CommentSocketController {
 	};
 	
 	//TODO: remove comment handler
-	private DataListener<Integer> onRemoveComment = new DataListener<Integer>() {
+	private DataListener<Comment> onRemoveComment = new DataListener<Comment>() {
 		@Override
-		public void onData(SocketIOClient client, Integer id, AckRequest ackSender) throws Exception {
-			if(commentService.delete(id)){
+		public void onData(SocketIOClient client, Comment comment , AckRequest ackSender) throws Exception {
+			System.out.print("comment object "+comment);
+			if(commentService.delete(comment.getCommentID(),comment.getUserID())){
 				//send to all connected client
-				nspComment.getBroadcastOperations().sendEvent("removed comment", id);
+				nspComment.getBroadcastOperations().sendEvent("removed comment", comment.getCommentID() );
 			}
 		}
 	};

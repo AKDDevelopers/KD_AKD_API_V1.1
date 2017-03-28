@@ -62,22 +62,22 @@ public class CommentController {
 		return res;
 	}
 	
-	@RequestMapping(value="/comment/{id}",method=RequestMethod.PUT)
-	public Response delete(@PathVariable("id") int id)
-	{
-	
-		boolean status=commentService.delete(id);
-		Response res=new Response();
-		if(status){
-			res.setCode(ResponseCode.DELETE_SUCCESS);
-			res.setMessage();
-		}
-		else{
-			res.setCode(ResponseCode.DELETE_FAIL);
-			res.setMessage();
-		}
-		return res;
-	}
+//	@RequestMapping(value="/comment/{id}",method=RequestMethod.PUT)
+//	public Response delete(@PathVariable("id") int id)
+//	{
+//
+//		boolean status=commentService.delete(id);
+//		Response res=new Response();
+//		if(status){
+//			res.setCode(ResponseCode.DELETE_SUCCESS);
+//			res.setMessage();
+//		}
+//		else{
+//			res.setCode(ResponseCode.DELETE_FAIL);
+//			res.setMessage();
+//		}
+//		return res;
+//	}
 	
 	
 	

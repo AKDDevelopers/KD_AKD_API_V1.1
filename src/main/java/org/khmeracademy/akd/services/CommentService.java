@@ -6,7 +6,7 @@ import org.khmeracademy.akd.model.post.CommentInput;
 import org.khmeracademy.akd.model.put.updateComment;
 import org.khmeracademy.akd.utilities.Paging;
 public interface CommentService {	
-	boolean delete(int id);
+	boolean delete(int commentId, int userId);
 	
 	boolean insert(CommentInput com);
 	

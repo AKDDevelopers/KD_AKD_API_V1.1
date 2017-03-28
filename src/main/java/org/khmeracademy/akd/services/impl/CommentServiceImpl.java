@@ -18,9 +18,9 @@ public class CommentServiceImpl implements CommentService{
 	
 	
 	@Override
-	public boolean delete(int id) {
+	public boolean delete(int commentId, int userId) {
 		try{
-			return commentRepository.delete(id);
+			return commentRepository.delete(commentId,userId);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

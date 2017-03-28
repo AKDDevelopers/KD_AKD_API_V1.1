@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository {
-	
+
 	@Delete("UPDATE akd_categories SET status = 0 WHERE cat_id=#{id}")
 	boolean delete(String id);
 	

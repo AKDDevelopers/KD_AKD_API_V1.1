@@ -52,7 +52,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 		registry.addResourceHandler("/**").addResourceLocations("/").setCachePeriod(0);
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-		registry.addResourceHandler("/assets/upload/**").addResourceLocations("file:/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/USER-PROFILE/");
+		registry.addResourceHandler("/assets/upload/**").addResourceLocations("file:/Data/PROJECTS/FILES_MANAGEMENT/ALL_KHMER_DOCS/USER-PROFILE/");
 }
 	
 	@Autowired

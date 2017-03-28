@@ -34,7 +34,7 @@ public class UploadToServerServiceImpl implements UploadToServerService{
 		}
 		if(folder=="" || folder==null)
 //			folder = "D:/KSHRD/ALL KHMER DOCS/AKD File";
-			folder = "/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/UPLOAD";
+			folder = "/Data/PROJECTS/FILES_MANAGEMENT/ALL_KHMER_DOCS/UPLOAD";
 		// I change to this path right or not ?? RIGHT HOW HOUY TA
 	//	String UPLOAD_PATH = "file" + folder;
 		String UPLOAD_PATH =folder;
@@ -89,7 +89,7 @@ public class UploadToServerServiceImpl implements UploadToServerService{
 		}
 		if(folder=="" || folder==null)
 		//	folder = "src/main/webapp/resources/img/user-profile";
-			folder = "/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/USER-PROFILE/";
+			folder = "/Data/PROJECTS/FILES_MANAGEMENT/ALL_KHMER_DOCS/USER-PROFILE/";
 		
 	//	String UPLOAD_PATH = "file" + folder;
 		String UPLOAD_PATH =folder;

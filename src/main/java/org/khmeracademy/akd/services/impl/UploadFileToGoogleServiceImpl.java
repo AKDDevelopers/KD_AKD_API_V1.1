@@ -35,7 +35,7 @@ public class UploadFileToGoogleServiceImpl {
 		
 		String serviceAccountID="all-khmer-docs@all-khmer-docs-146405.iam.gserviceaccount.com";
 //		String ServiceAccountPrivateKey="ALL-KHMER-DOCS-4ef8850572e9.p12";
-		String ServiceAccountPrivateKey="/opt/FILES_MANAGEMENT/ALL_KHMER_DOCS/ALL-KHMER-DOCS-4ef8850572e9.p12";
+		String ServiceAccountPrivateKey="/Data/PROJECTS/FILES_MANAGEMENT/ALL_KHMER_DOCS/ALL-KHMER-DOCS-4ef8850572e9.p12";
 		String con = parentID.toLowerCase();
 		
 
