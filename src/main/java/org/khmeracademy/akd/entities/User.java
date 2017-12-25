@@ -2,6 +2,7 @@ package org.khmeracademy.akd.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User{
@@ -14,7 +15,7 @@ public class User{
 	@JsonProperty("USER_NAME")
 	private String name;
 	
-	@JsonProperty("PASSWORD")
+	@JsonIgnore
 	private String password;
 	
 	@JsonProperty("EMAIL")
